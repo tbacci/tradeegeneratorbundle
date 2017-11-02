@@ -1,0 +1,3 @@
+tradee_generator_homepage:
+    path:     /test
+    defaults: { _controller: TradeeGeneratorBundle:Default:index }

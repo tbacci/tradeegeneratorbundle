@@ -1,0 +1,9 @@
+services:
+#    tradee_generator.example:
+#        class: Tradee\GeneratorBundle\Example
+#        arguments: ["@service_id", "plain_value", %parameter%]
+    tradee.genrator.pre_execute_listener:
+        class: Tradee\GeneratorBundle\EventListener\ViewListener
+        arguments: ["@templating"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.response, method: onKernelView }
