@@ -7,3 +7,7 @@ services:
         arguments: ["@templating"]
         tags:
             - { name: kernel.event_listener, event: kernel.response, method: onKernelView }
+
+    tradee.statics_manager:
+        class: Tradee\GeneratorBundle\StaticsManager\StaticsManager
+        arguments: ["%kernel.root_dir%"]

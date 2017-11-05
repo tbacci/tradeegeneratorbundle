@@ -26,14 +26,14 @@ class ViewListener {
 
     public function onKernelView(FilterResponseEvent $event)
     {
-        $val = $event->getResponse();
+//        $val = $event->getResponse();
 
-        $dom = new \DOMDocument();
-        $dom->loadHTML($val->getContent());
-        $dom->
-        var_dump($dom->childNodes->item(0));
-        var_dump($val->getContent());
-        var_dump($val);
+//        $dom = new \DOMDocument();
+//        $dom->loadHTML($val->getContent());
+//        $dom->
+//        var_dump($dom->childNodes->item(0));
+//        var_dump($val->getContent());
+//        var_dump($val);
 //        $response = new Response();
 
         // ... somehow customize the Response from the return value

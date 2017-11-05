@@ -1,3 +1,7 @@
 tradee_generator_homepage:
     path:     /test
     defaults: { _controller: TradeeGeneratorBundle:Default:index }
+
+tradee_generator_toolbar:
+   path: /_tradee/toolbar
+   defaults: { _controller: TradeeGeneratorBundle:Infos:toolbar }
