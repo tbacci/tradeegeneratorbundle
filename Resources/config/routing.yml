@@ -5,3 +5,7 @@ tradee_generator_homepage:
 tradee_generator_toolbar:
    path: /_tradee/toolbar
    defaults: { _controller: TradeeGeneratorBundle:Infos:toolbar }
+
+tradee_generator_initialization:
+   path: /_tradee/initialization
+   defaults: { _controller: TradeeGeneratorBundle:Infos:initialization }
