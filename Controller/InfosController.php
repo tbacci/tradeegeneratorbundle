@@ -39,6 +39,7 @@ class InfosController extends Controller {
     public function initializationAction(){
 
         $staticsManager = $this->getStaticsManager();
+        $staticsManager->initialize();
 
         return new Response('');
     }

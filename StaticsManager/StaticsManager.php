@@ -35,6 +35,18 @@ class StaticsManager
         ];
 
         $this->writeJson('infos.json', $infos);
+        $this->findFiles();
+
+        $relativePaths =
+            array_values(
+                array_map(function ($file) {
+                    return $file->getRelativePathname();
+                }, $this->files)
+            );
+
+            sort($relativePaths);
+
+        $this->writeJson('files.json', $relativePaths);
     }
 
     private function writeJson($filename, $datas)
@@ -65,15 +77,32 @@ class StaticsManager
         return file_exists($this->tradeeDir);
     }
 
-    private function findFiles(){
+    private function findFiles()
+    {
         $finder = new Finder();
         $finder
             ->in($this->projectDir)
             ->exclude(['vendor'])
             ->files()
-            ->name('*.xlf');
+            ->name('*.yml');
 
-            $this->files = iterator_to_array($finder->getIterator());
+        $this->files = iterator_to_array($finder->getIterator());
 
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFiles()
+    {
+        return $this->files;
+    }
+
+    /**
+     * @param mixed $files
+     */
+    public function setFiles($files)
+    {
+        $this->files = $files;
     }
 }
