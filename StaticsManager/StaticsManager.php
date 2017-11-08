@@ -3,26 +3,29 @@
 namespace Tradee\GeneratorBundle\StaticsManager;
 
 use Symfony\Component\Config\Definition\Exception\Exception;
+use Symfony\Component\Finder\Finder;
 
 class StaticsManager
 {
 
     private $projectDir;
     private $tradeeDir;
+    private $files;
 
     public function __construct($rootDir)
     {
         $this->projectDir = realpath($rootDir . '/../');
         $this->tradeeDir = $this->projectDir . '/tradee';
+        $this->findFiles();
     }
 
     public function initialize()
     {
         if (!file_exists($this->tradeeDir)) {
-            try{
+            try {
                 $this->checkAccess();
-            }catch (Exception $e){
-                throw new \StaticsManagerException($e . ' Please create tradee folder');
+            } catch (Exception $e) {
+                throw new StaticsManagerException($e . ' Please create tradee folder');
             }
             mkdir($this->tradeeDir);
         }
@@ -45,14 +48,14 @@ class StaticsManager
     private function checkInitialization()
     {
         if (!$this->isInitialized()) {
-            throw new \StaticsManagerException('Tradee not initialized');
+            throw new StaticsManagerException('Tradee not initialized');
         }
     }
 
     private function checkAccess()
     {
         if (!is_writable($this->projectDir)) {
-            throw new \StaticsManagerException('Project dir "' . $this->projectDir .
+            throw new StaticsManagerException('Project dir "' . $this->projectDir .
                 ' is not writable');
         }
     }
@@ -62,22 +65,15 @@ class StaticsManager
         return file_exists($this->tradeeDir);
     }
 
-    private function findFiles($directory, $extensions = array()) {
-        function glob_recursive($directory, &$directories = array()) {
-            foreach(glob($directory, GLOB_ONLYDIR | GLOB_NOSORT) as $folder) {
-                $directories[] = $folder;
-                glob_recursive("{$folder}/*", $directories);
-            }
-        }
-        glob_recursive($directory, $directories);
-        $files = array ();
-        foreach($directories as $directory) {
-            foreach($extensions as $extension) {
-                foreach(glob("{$directory}/*.{$extension}") as $file) {
-                    $files[$extension][] = $file;
-                }
-            }
-        }
-        return $files;
+    private function findFiles(){
+        $finder = new Finder();
+        $finder
+            ->in($this->projectDir)
+            ->exclude(['vendor'])
+            ->files()
+            ->name('*.xlf');
+
+            $this->files = iterator_to_array($finder->getIterator());
+
     }
 }

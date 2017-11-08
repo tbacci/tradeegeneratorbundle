@@ -40,8 +40,6 @@ class InfosController extends Controller {
 
         $staticsManager = $this->getStaticsManager();
 
-        var_dump($staticsManager->initialize());
-
-        return new Response('ll');
+        return new Response('');
     }
 }
